@@ -87,6 +87,9 @@ input[type=range].slider::-moz-range-thumb{width:26px;height:26px;border-radius:
 .skills-panel{background:var(--surface);border:1px solid var(--active);border-top:none;border-radius:0 0 var(--r) var(--r);padding:clamp(.7rem,2vw,1.1rem);transition:border-color var(--tr)}
 .skills-count{font-size:.74rem;color:var(--muted);margin-bottom:.6rem}
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,205px),1fr));gap:.48rem}
+.cat-header{grid-column:1/-1;display:flex;align-items:center;gap:.45rem;font-size:.82rem;font-weight:700;color:var(--active);margin-top:.6rem;padding:.3rem 0 .2rem;border-bottom:1.5px solid var(--active-h)}
+.cat-header:first-child{margin-top:0}
+.cat-header-dot{width:10px;height:10px;border-radius:50%;background:var(--active);flex-shrink:0}
 
 /* ══ SKILL-KARTE ═══════════════════════════════════════════ */
 .sk{display:flex;align-items:center;gap:.52rem;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.58rem .82rem;cursor:pointer;transition:transform var(--tr),box-shadow var(--tr),border-color var(--tr),background var(--tr);-webkit-tap-highlight-color:transparent;user-select:none;position:relative;overflow:hidden}
@@ -331,34 +334,50 @@ function render(anim){
   d.kategorien.forEach(function(k){ mkTab(k.id,k.icon,k.label); });
 
   /* Skills */
-  var skills=[];
-  d.kategorien.forEach(function(k){
-    if(!S.kat||S.kat===k.id)
-      k.skills.forEach(function(s,i){ skills.push({lv:S.level,kid:k.id,klbl:k.label,idx:i,e:s.e,t:s.t,b:s.b,tip:s.tip}); });
-  });
-
-  el('sc').textContent=skills.length+' Skills'+(S.kat?' in dieser Kategorie':' insgesamt')+' — auf einen Skill tippen für mehr Info';
-
+  var totalCount=0;
   var grid=el('sg'); grid.innerHTML='';
-  skills.forEach(function(s,i){
-    var card=document.createElement('div');
-    card.className='sk card-anim';
-    card.style.animationDelay=(i*26)+'ms';
-    card.setAttribute('role','button');
-    card.setAttribute('tabindex','0');
-    card.setAttribute('aria-label',s.t+' — Details anzeigen');
+  var cardIdx=0;
 
-    var ee=document.createElement('span'); ee.className='sk-e'; ee.textContent=s.e||'·';
-    var tt=document.createElement('span'); tt.className='sk-t'; tt.textContent=s.t;
-    var ar=document.createElement('span'); ar.className='sk-arr'; ar.textContent='›';
+  d.kategorien.forEach(function(k){
+    if(S.kat&&S.kat!==k.id) return;
+    if(!k.skills.length) return;
 
-    card.appendChild(ee);card.appendChild(tt);card.appendChild(ar);
+    /* Kategorieheader nur bei "Alle" */
+    if(!S.kat){
+      var hdr=document.createElement('div');
+      hdr.className='cat-header card-anim';
+      hdr.style.animationDelay=(cardIdx*26)+'ms';
+      var dot=document.createElement('span'); dot.className='cat-header-dot';
+      var lbl=document.createElement('span'); lbl.textContent=(k.icon?k.icon+' ':'')+k.label;
+      hdr.appendChild(dot); hdr.appendChild(lbl);
+      grid.appendChild(hdr);
+      cardIdx++;
+    }
 
-    function open(ev){ ripple(card,ev); openModal(s); }
-    card.addEventListener('click', open);
-    card.addEventListener('keydown',function(e){ if(e.key===' '||e.key==='Enter'){e.preventDefault();openModal(s);} });
-    grid.appendChild(card);
+    k.skills.forEach(function(s){
+      totalCount++;
+      var sObj={lv:S.level,kid:k.id,klbl:k.label,idx:cardIdx,e:s.e,t:s.t,b:s.b,tip:s.tip};
+      var card=document.createElement('div');
+      card.className='sk card-anim';
+      card.style.animationDelay=(cardIdx*26)+'ms';
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.setAttribute('aria-label',s.t+' — Details anzeigen');
+
+      var ee=document.createElement('span'); ee.className='sk-e'; ee.textContent=s.e||'·';
+      var tt=document.createElement('span'); tt.className='sk-t'; tt.textContent=s.t;
+      var ar=document.createElement('span'); ar.className='sk-arr'; ar.textContent='›';
+
+      card.appendChild(ee); card.appendChild(tt); card.appendChild(ar);
+
+      card.addEventListener('click', function(ev){ ripple(card,ev); openModal(sObj); });
+      card.addEventListener('keydown',function(e){ if(e.key===' '||e.key==='Enter'){e.preventDefault();openModal(sObj);} });
+      grid.appendChild(card);
+      cardIdx++;
+    });
   });
+
+  el('sc').textContent=totalCount+' Skills'+(S.kat?' in dieser Kategorie':' insgesamt')+' — auf einen Skill tippen für mehr Info';
 
   updateProgress();
 }
