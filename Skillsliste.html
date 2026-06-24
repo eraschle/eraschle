@@ -61,7 +61,7 @@ body{font-family:var(--f-b);background:var(--bg);color:var(--text);min-height:10
 .ampel-licht.aktiv.gruen{box-shadow:0 0 0 3px #2e7d32, 0 0 22px 6px rgba(46,125,50,.65)}
 .ampel-licht.aktiv{animation:licht-puls 2.6s ease-in-out infinite}
 @keyframes licht-puls{0%,100%{opacity:1}50%{opacity:.82}}
-.ampel-labels{display:flex;flex-direction:column;justify-content:space-between;flex:1;align-self:stretch}
+.ampel-labels{display:grid;grid-template-rows:repeat(3,clamp(40px,7vw,56px));gap:clamp(6px,1.2vw,10px);align-items:center;padding:clamp(8px,1.5vw,14px) 0;flex:1}
 .ampel-label{display:flex;align-items:center;gap:.55rem;padding:.38rem .7rem;border-radius:var(--r-xs);cursor:pointer;transition:background var(--tr),transform .12s;-webkit-tap-highlight-color:transparent;border:1.5px solid transparent}
 .ampel-label:hover{background:rgba(0,0,0,.04);transform:translateX(2px)}
 .ampel-label.aktiv{background:var(--active-h);border-color:var(--active)}
