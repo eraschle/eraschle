@@ -55,6 +55,20 @@ def clean(value) -> str:
     return str(value).strip()
 
 
+def format_tip(tip: str) -> str:
+    """Stellt der Birne 💡 voran (leerer Tipp bleibt leer).
+
+    Idempotent: eine evtl. schon vorhandene führende Birne wird zuerst
+    entfernt, damit nie '💡 💡 …' entsteht.
+    """
+    tip = tip.strip()
+    if not tip:
+        return ""
+    if tip.startswith("💡"):
+        tip = tip[1:].lstrip()
+    return f"💡 {tip}"
+
+
 def slug(label: str) -> str:
     """Erzeugt eine interne, stabile ID aus dem Kategorie-Label.
 
@@ -183,7 +197,12 @@ def load_data():
             )
             continue
         skills_by.setdefault((key, label), []).append(
-            {"e": rec["Emoji"], "t": rec["Titel"], "b": rec["Beschreibung"], "tip": rec["Tipp"]}
+            {
+                "e": rec["Emoji"],
+                "t": rec["Titel"],
+                "b": rec["Beschreibung"],
+                "tip": format_tip(rec["Tipp"]),
+            }
         )
 
     if errors:

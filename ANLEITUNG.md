@@ -11,7 +11,7 @@ Webseite wird danach per Doppelklick neu erzeugt.
 | **`skills_daten.xlsx`** | Hier werden die Inhalte bearbeitet (das ist die einzige Datei, die du anfasst). |
 | **`build.bat`** | Doppelklick → erzeugt die Webseite neu. |
 | `Skillsliste.html` | Das **Ergebnis** (die fertige Webseite). Wird automatisch überschrieben — **nicht von Hand bearbeiten.** |
-| `template.html`, `build.py` | Technik dahinter — bitte nicht verändern. |
+| `template.html`, `build.py`, Ordner `tools/` | Technik dahinter (für Entwickler) — bitte nicht verändern. |
 
 ## Einmalig: „uv" installieren
 
@@ -49,7 +49,11 @@ Jede Zeile ist ein Skill. Spalten:
 | **Emoji** | Ein Emoji, z. B. 🌶️ (Emoji-Auswahl mit Tastenkombination **Windows-Taste + .** (Punkt)). |
 | **Titel** | Kurzer Name des Skills. |
 | **Beschreibung** | Der erklärende Text. |
-| **Tipp** | Optionaler Zusatztipp (darf leer sein). |
+| **Tipp** | Optionaler Zusatztipp (darf leer sein). Die Glühbirne **💡 wird automatisch** vorangestellt – also **nicht** selbst eintippen, nur den Text. |
+
+> **Filtern/Sortieren:** In der Kopfzeile gibt es Filter-Pfeile. Damit lässt
+> sich z. B. nur eine Stufe oder Kategorie anzeigen. Das ist nur eine
+> Ansichtshilfe und ändert die Daten nicht.
 
 - **Neue Skill hinzufügen:** einfach eine neue Zeile ausfüllen.
 - **Skill entfernen:** die ganze Zeile löschen.
@@ -79,6 +83,14 @@ mit welchem **Icon**.
 ```
 
 Korrigiere die genannte Zeile, speichere und starte `build.bat` erneut.
+
+## Hinweis zu Emoji-Farben in Excel
+
+Die Emoji-Spalten sind auf die Schriftart **Segoe UI Emoji** gestellt, damit
+Excel sie farbig anzeigt. Je nach Excel-Version werden Emoji im Tabellenblatt
+trotzdem **schwarz-weiss** dargestellt – das ist nur eine Anzeige-Eigenheit von
+Excel. Die Emoji sind korrekt gespeichert und erscheinen auf der **Webseite
+immer farbig**.
 
 ## Wichtige Regeln (kurz)
 
