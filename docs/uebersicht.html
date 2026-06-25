@@ -90,6 +90,24 @@
       border-radius: 6px;
       border: 1px solid var(--border);
     }
+    .footer-credit {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .footer-credit:hover { color: var(--accent); }
+    .footer-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      object-fit: cover;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -117,7 +135,11 @@
     </section>
 
     <footer>
-      Gehostet via GitHub Pages unter <code>eraschle.github.io/skills/</code>
+      <div>Gehostet via GitHub Pages unter <code>eraschle.github.io/skills/</code></div>
+      <a class="footer-credit" href="https://github.com/eraschle" target="_blank" rel="noopener">
+        <img class="footer-avatar" src="https://github.com/eraschle.png?size=80" alt="Erich Raschle" loading="lazy" width="28" height="28">
+        <span>Erstellt von Erich Raschle</span>
+      </a>
     </footer>
   </div>
 </body>

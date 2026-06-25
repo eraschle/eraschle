@@ -170,6 +170,9 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .art-desc{font-size:.75rem;color:var(--muted);line-height:1.42}
 
 footer{text-align:center;padding:2rem 1rem;font-size:.74rem;color:var(--muted);border-top:1px solid var(--border);margin-top:2rem}
+.footer-credit{display:inline-flex;align-items:center;gap:.5rem;margin-top:.7rem;color:var(--muted);text-decoration:none;font-size:.74rem;transition:color var(--tr)}
+.footer-credit:hover{color:var(--active)}
+.footer-avatar{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);object-fit:cover;display:block}
 
 /* ══ RESPONSIVE ════════════════════════════════════════════ */
 @media(max-width:560px){.sek-hd{flex-direction:column;align-items:flex-start}.tacho{font-size:50px}}
@@ -263,7 +266,13 @@ footer{text-align:center;padding:2rem 1rem;font-size:.74rem;color:var(--muted);b
   </div>
 </main>
 
-<footer>Skillssammlung Psychotherapie</footer>
+<footer>
+  <div>Skillssammlung Psychotherapie</div>
+  <a class="footer-credit" href="https://github.com/eraschle" target="_blank" rel="noopener">
+    <img class="footer-avatar" src="https://github.com/eraschle.png?size=80" alt="Erich Raschle" loading="lazy" width="28" height="28">
+    <span>Erstellt von Erich Raschle</span>
+  </a>
+</footer>
 
 <!-- MODAL -->
 <div class="modal-backdrop" id="mb" role="dialog" aria-modal="true" aria-labelledby="m-title">
